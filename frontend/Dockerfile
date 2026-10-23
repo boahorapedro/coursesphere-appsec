@@ -15,7 +15,7 @@ RUN npm install -g serve
 COPY . .
 
 # Build the app
-RUN npm run build
+RUN npx vite build
 
 # Expose the port that the app will run on
 EXPOSE 3000
