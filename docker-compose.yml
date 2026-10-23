@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+  backend:
+    build: ./backend
+    ports: ["5000:5000"]
+    volumes:
+      - ./secrets/credentials.json:/app/credentials.json:ro
+      - ./secrets/config.json:/app/config.json:ro
