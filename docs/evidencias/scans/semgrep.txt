@@ -1,0 +1,114 @@
+                    
+                    
+┌──────────────────┐
+│ 14 Code Findings │
+└──────────────────┘
+                      
+    backend/Dockerfile
+   ❯❯❱ dockerfile.security.missing-user.missing-user
+          ❰❰ Blocking ❱❱
+          By not specifying a USER, a program in the container may run as 'root'. This is a security hazard.
+          If an attacker can control a process running as root, they may have control over the container.   
+          Ensure that the last USER in a Dockerfile is a USER other than 'root'.                            
+          Details: https://sg.run/Gbvn                                                                      
+                                                                                                            
+           ▶▶┆ Autofix ▶ USER non-root CMD ["flask", "--app", "endpoints", "run", "--host", "0.0.0.0", "--port", "5000"]
+            7┆ CMD ["flask", "--app", "endpoints", "run", "--host", "0.0.0.0", "--port", "5000"]
+                                 
+    backend/blueprints/courses.py
+   ❯❯❱ python.flask.security.injection.tainted-sql-string.tainted-sql-string
+          ❰❰ Blocking ❱❱
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as SQLAlchemy which will protect your queries.                                  
+          Details: https://sg.run/JxZj                                                                      
+                                                                                                            
+           30┆ course = execute_query(f"SELECT * FROM courses WHERE id = {course_id}").fetchall()
+            ⋮┆----------------------------------------
+           47┆ f"SELECT description FROM course_descriptions WHERE id = {course_id}"
+            ⋮┆----------------------------------------
+           64┆ f"SELECT * FROM courses WHERE section_id = {section_id}"
+            ⋮┆----------------------------------------
+           80┆ f"SELECT * FROM courses WHERE semester = '{semester}'"
+            ⋮┆----------------------------------------
+           96┆ f"SELECT * FROM courses WHERE department = '{department}'"
+            ⋮┆----------------------------------------
+          112┆ f"SELECT * FROM courses WHERE instructor = '{instructor}'"
+                        
+    backend/endpoints.py
+    ❯❱ python.flask.security.audit.debug-enabled.debug-enabled
+          ❰❰ Blocking ❱❱
+          Detected Flask app with debug=True. Do not deploy to production with this flag enabled as it will   
+          leak sensitive information. Instead, consider using Flask configuration variables or setting 'debug'
+          using system environment variables.                                                                 
+          Details: https://sg.run/dKrd                                                                        
+                                                                                                              
+          108┆ app.run(debug=True)
+                       
+    frontend/Dockerfile
+   ❯❯❱ dockerfile.security.missing-user.missing-user
+          ❰❰ Blocking ❱❱
+          By not specifying a USER, a program in the container may run as 'root'. This is a security hazard.
+          If an attacker can control a process running as root, they may have control over the container.   
+          Ensure that the last USER in a Dockerfile is a USER other than 'root'.                            
+          Details: https://sg.run/Gbvn                                                                      
+                                                                                                            
+           ▶▶┆ Autofix ▶ USER non-root CMD ["serve", "-s", "dist", "-l", "3000"]
+           24┆ CMD ["serve", "-s", "dist", "-l", "3000"]
+                       
+    frontend/src/api.ts
+   ❯❯❱ typescript.react.security.react-insecure-request.react-insecure-request
+          ❰❰ Blocking ❱❱
+          Unencrypted request over HTTP detected.
+          Details: https://sg.run/1n0b           
+                                                 
+           14┆ const response = await fetch('http://127.0.0.1:5000/users/create', {
+           15┆   method: 'POST',
+           16┆   mode: "cors",
+           17┆   headers: {
+           18┆     'Content-Type': 'application/json'
+           19┆   },
+           20┆   body: JSON.stringify({email, password})
+           21┆ });
+            ⋮┆----------------------------------------
+          160┆ fetch("http://127.0.0.1:5000/users/info", {
+          161┆   method: "POST",
+          162┆   headers: {
+          163┆       "Content-Type": "application/json",
+          164┆   },
+          165┆   body: JSON.stringify(data)
+          166┆ })
+            ⋮┆----------------------------------------
+          186┆ const response = await fetch("http://127.0.0.1:5000/users/query", {
+          187┆   method: "POST",
+          188┆   headers: {
+          189┆     "Content-Type": "application/json",
+          190┆     'Authorization': `Bearer ${idToken}`
+          191┆   },
+          192┆   body: JSON.stringify(data)
+          193┆ })
+            ⋮┆----------------------------------------
+          304┆ const response = await fetch("http://127.0.0.1:5000/hash", {
+          305┆   method: 'POST',
+          306┆   headers: {
+          307┆     'Content-Type': 'application/json',
+          308┆     'Authorization': `Bearer ${idToken}`
+          309┆   },
+          310┆   body: JSON.stringify(data)
+          311┆ });
+                                                   
+    frontend/src/components/UserChats/UserChats.tsx
+   ❯❯❱ typescript.react.security.react-insecure-request.react-insecure-request
+          ❰❰ Blocking ❱❱
+          Unencrypted request over HTTP detected.
+          Details: https://sg.run/1n0b           
+                                                 
+           25┆ const response = await fetch("http://127.0.0.1:5000/theactualbackendlink", {
+           26┆   method: "GET",
+           27┆   headers: {
+           28┆     "Content-Type": "application/json",
+           29┆     "Authorization": `Bearer ${idToken}`,
+           30┆   },
+           31┆ });
