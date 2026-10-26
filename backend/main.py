@@ -55,7 +55,9 @@ def get_query_details(query: str) -> dict:
         max_tokens=1000
     )
     return json.loads(response.to_dict()['choices'][0]['text'])
-response = get_query_details(query)
-print(response)
+
+if __name__ == "__main__":
+    response = get_query_details(query)
+    print(response)
 
 
