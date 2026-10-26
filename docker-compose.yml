@@ -2,9 +2,17 @@ services:
   frontend:
     build: ./frontend
     ports: ["3000:3000"]
+  firebase-emulator:
+    build: ./emulator
+    ports:
+      - "9099:9099"
+      - "9000:9000"
   backend:
     build: ./backend
-    ports: ["5000:5000"]
-    volumes:
-      - ./secrets/credentials.json:/app/credentials.json:ro
-      - ./secrets/config.json:/app/config.json:ro
+    depends_on:
+      - firebase-emulator
+    environment:
+      FIREBASE_AUTH_EMULATOR_HOST: firebase-emulator:9099
+      FIREBASE_DATABASE_EMULATOR_HOST: firebase-emulator:9000
+    ports:
+      - "5000:5000"
