@@ -68,10 +68,10 @@ Triagem inicial a partir de Semgrep, Bandit, Gitleaks e leitura manual do códig
 - **Implementada:** não / commit ____
 
 ### C05 — Credenciais do Reddit versionadas
-- **Causa raiz:** (escrever depois da reprodução)
-- **Impacto:** (o que um terceiro consegue fazer com essas credenciais e por que o histórico do Git mantém o risco mesmo após remover o arquivo)
-- **Evidência:** `docs/evidencias/c05/` e `docs/evidencias/scans/gitleaks.json`
-- **Correção recomendada:** revogar e gerar novas credenciais; remover o arquivo do código atual, ignorá-lo no `.gitignore` e carregar o segredo por variável de ambiente; avaliar reescrita do histórico
+- **Causa raiz:** o arquivo `reddit_key.json`, com `client_id` e `client_secret` da API do Reddit, foi commitado no repositório (histórico a partir do `c979a1e`, 2024-07-16) e nada o impediu: o `.gitignore` cobre `*config.json` e `secrets/`, mas não esse nome de arquivo; o segredo fica em arquivo dentro do repositório em vez de vir de variável de ambiente; e não há varredura de segredos antes do commit.
+- **Impacto:** Média. Quem clonar o repositório lê as credenciais com `git show` em qualquer commit (o `git log` só lista os commits, quem mostra o conteúdo é o `git show`). Elas dão acesso à API do Reddit em nome da aplicação de terceiros, dentro do escopo dela, e não foi possível saber se ainda são válidas (não testamos credenciais de terceiros). Apagar o arquivo não resolve, porque o valor continua em todos os commits antigos.
+- **Evidência:** `docs/evidencias/c05/historico-e-presenca.txt` (commit de origem, presença na tag e na `main`, campos de 22 e 30 caracteres, sem expor valores) e `docs/evidencias/scans/gitleaks.json`
+- **Correção recomendada:** (1) revogar e gerar novas credenciais, que é a correção que de fato elimina o risco; (2) tirar o arquivo do código atual (`git rm --cached`), ignorá-lo no `.gitignore` e deixar no lugar um `reddit_key.example.json` sem valores; (3) carregar o segredo por variável de ambiente; (4) adicionar varredura de segredos (Gitleaks) no CI. A reescrita do histórico não será feita aqui: o histórico é do projeto original, a tag `v0-original` é a base das comparações, e com a revogação feita ela deixa de ser necessária.
 - **Implementada:** não / commit ____
 
 ### C19 — Enumeração de usuários
