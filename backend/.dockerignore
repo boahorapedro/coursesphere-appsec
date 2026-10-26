@@ -1,3 +1,5 @@
 cornell-course-sphere-data/
 __pycache__/
 .idea/
+credentials.json
+config.json
