@@ -1,0 +1,12 @@
+## 1. Histórico do arquivo (commit, data, mensagem)
+c979a1e 2024-07-16 merge
+
+## 2. O arquivo existe na tag v0-original? (exit 0 = existe)
+exit=0
+
+## 3. Está no código atual da main?
+sim, versionado
+
+## 4. Nomes dos campos e tamanho dos valores (sem imprimir os valores)
+client_id 22 caracteres
+client_secret 30 caracteres

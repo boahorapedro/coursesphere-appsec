@@ -1,0 +1,9 @@
+## GET com Origin: https://evil.example
+HTTP/1.1 400 BAD REQUEST
+Access-Control-Allow-Origin: https://evil.example
+
+## Preflight OPTIONS
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: https://evil.example
+Access-Control-Allow-Headers: authorization, content-type
+Access-Control-Allow-Methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
