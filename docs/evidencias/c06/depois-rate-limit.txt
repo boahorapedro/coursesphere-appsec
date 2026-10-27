@@ -1,0 +1,10 @@
+## 50 criações de conta seguidas pelo balanceador: contagem de status HTTP
+      4 200
+     46 429
+
+## Cabeçalhos de segurança nas respostas
+HTTP/1.1 401 UNAUTHORIZED
+Server: nginx
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer

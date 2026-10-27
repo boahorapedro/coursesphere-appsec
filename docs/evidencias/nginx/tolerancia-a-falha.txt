@@ -1,0 +1,6 @@
+## Derrubando uma réplica
+réplica parada
+## 6 requisições com uma réplica fora (esperado: todas 401, sem erro 5xx)
+401 401 401 401 401 401 
+## Trazendo a réplica de volta
+réplica reiniciada
