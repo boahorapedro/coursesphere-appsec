@@ -1,0 +1,10 @@
+## A. Token no cabeçalho Authorization (esperado: 200)
+status: 200
+
+## B. Token na query string, sem cabeçalho (esperado: 401, rota recusa)
+{"error":"Authorization header with Bearer token is required"}
+
+status: 401
+
+## C. Log do backend para a requisição A (esperado: nenhum token na linha)
+172.18.0.1 - - [27/Oct/2026 20:06:17] "GET /users/info HTTP/1.1" 200 -
