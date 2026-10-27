@@ -1,0 +1,17 @@
+## 1º cadastro (e-mail novo)
+{"message":"Registration request accepted"}
+
+status: 200
+
+## 2º cadastro (mesmo e-mail): esperado idêntico ao 1º
+{"message":"Registration request accepted"}
+
+status: 200
+
+## Senha fraca (1 caractere): esperado 400 genérico
+{"error":"Could not create the account with the data provided"}
+
+status: 400
+
+## A conta do 1º cadastro foi mesmo criada? (login direto no emulador)
+login ok
