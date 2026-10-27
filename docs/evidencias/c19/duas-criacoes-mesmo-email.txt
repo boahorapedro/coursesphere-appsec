@@ -1,0 +1,10 @@
+## Pedido 1: criar a mesma conta
+{"email":"c19@teste.com","message":"User created successfully","user_id":"h5kpQ9DJsWYww8Ug5GijPTeGsoQ4"}
+
+status: 200
+
+## Pedido 2: criar a mesma conta
+{"error":"Error creating user: Error creating user: The user with the provided email already exists (EMAIL_EXISTS)."}
+
+status: 400
+
