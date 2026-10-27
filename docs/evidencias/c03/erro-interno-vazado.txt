@@ -1,0 +1,10 @@
+## POST /users/info com id_token inválido
+HTTP/1.1 400 BAD REQUEST
+Server: Werkzeug/3.1.9 Python/3.12.15
+Date: Tue, 27 Oct 2026 00:50:43 GMT
+Content-Type: application/json
+Content-Length: 108
+Access-Control-Allow-Origin: *
+Connection: close
+
+{"error":"Error with setting user info: Error verifying ID token: Wrong number of segments in token: b'x'"}
