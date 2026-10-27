@@ -80,3 +80,10 @@ Triagem inicial a partir de Semgrep, Bandit, Gitleaks e leitura manual do códig
 - **Evidência:** `docs/evidencias/c19/duas-criacoes-mesmo-email.txt` (mesmo e-mail enviado duas vezes: 200 com `user_id`, depois 400 `EMAIL_EXISTS`)
 - **Correção recomendada:** devolver a mesma resposta para os dois casos (mesmo status e mesma mensagem genérica), sem repassar o texto interno do SDK e sem expor `user_id` de forma que diferencie os casos; aplicar rate limit na rota (C06). Observação de projeto: uniformidade total de cadastro costuma exigir confirmação por e-mail, que não existe aqui, então a correção implementada reduz o vazamento e o limite de taxa reduz a escala.
 - **Implementada:** não / commit ____
+
+### C06 — Sem rate limiting em `/users/create`
+- **Causa raiz:** nenhuma rota do backend limita a quantidade de requisições por origem; a aplicação não usa nenhum mecanismo de limite (nem no app nem em um proxy).
+- **Impacto:** Média. Permite automatizar cadastros em massa e, combinado com o C19, enumerar contas sem restrição. Também permite consumo abusivo de recursos e cota do Firebase.
+- **Evidência:** `docs/evidencias/c06/50-criacoes-sem-limite.txt` (50 cadastros seguidos, todos com status 200). Teste feito contra o emulador; no Firebase real há cotas próprias, mas o backend não impõe limite algum.
+- **Correção recomendada:** limitar a taxa por IP em `/users/create` e demais rotas públicas (por exemplo, Flask-Limiter ou `limit_req` no Nginx), respondendo `429`. Atenção: com 2 instâncias do backend atrás do Nginx, um contador em memória é por instância, então o limite efetivo é multiplicado; por isso o limite no Nginx (ou um armazenamento compartilhado) é mais coerente com a arquitetura.
+- **Implementada:** não / commit ____
