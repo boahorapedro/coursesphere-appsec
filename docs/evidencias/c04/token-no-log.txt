@@ -1,0 +1,6 @@
+## Requisição (token truncado na evidência)
+GET /users/info?id_token=<TOKEN>
+status: 200
+
+## Linha correspondente no log do backend
+172.18.0.1 - - [26/Oct/2026 23:46:33] "GET /users/info?id_token=eyJhbGciOiJu...[truncado] HTTP/1.1" 200 -
