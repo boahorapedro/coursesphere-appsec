@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from query_manager import QueryManager
 from firebase import Firebase
+from firebase_admin import auth
 from main import hashFunction
 
 app = Flask(__name__)
@@ -30,9 +31,14 @@ def create_user():
     if not password:
         return error_response("Password is required", 400)
     try:
-        return success_response(Firebase.create_user(email, password), 200)
-    except Exception as e:
-        return error_response(f"Error creating user: {str(e)}", 400)
+        Firebase.create_user(email, password)
+    except auth.EmailAlreadyExistsError:
+        # Same response as success: do not reveal if the email already has an account (C19).
+        pass
+    except Exception:
+        app.logger.error("create_user failed", exc_info=True)
+        return error_response("Could not create the account with the data provided", 400)
+    return success_response({"message": "Registration request accepted"}, 200)
 
 @app.route("/users/info", methods=["POST"])
 def set_user_info(): 

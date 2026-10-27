@@ -17,6 +17,8 @@ class Firebase:
             "email": user.email,
             } 
             return user_data
+        except auth.EmailAlreadyExistsError:
+            raise
         except Exception as e:
             raise Exception(f"Error creating user: {str(e)}")
         
