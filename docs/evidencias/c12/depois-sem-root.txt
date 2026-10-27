@@ -1,0 +1,11 @@
+## backend: usuário do processo
+uid=10001(app) gid=999(app) groups=999(app)
+
+## frontend: usuário do processo
+uid=1000(node) gid=1000(node) groups=1000(node)
+
+## o backend continua respondendo?
+GET /users/info sem token: 401 (esperado 401)
+
+## o frontend continua respondendo?
+GET / : 200 (esperado 200)

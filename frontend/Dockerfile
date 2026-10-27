@@ -20,5 +20,8 @@ RUN npx vite build
 # Expose the port that the app will run on
 EXPOSE 3000
 
+# Switch to a non-root user for security
+USER node
+
 # Define the command to run the app
 CMD ["serve", "-s", "dist", "-l", "3000"]
