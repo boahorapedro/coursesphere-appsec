@@ -13,6 +13,13 @@ CORS(app)
 success_response = lambda data, code: (jsonify(data), code)
 error_response = lambda error, code: (jsonify({'error': error}), code)
 
+def get_bearer_token():
+    header = request.headers.get("Authorization", "")
+    scheme, _, token = header.partition(" ")
+    if scheme.lower() != "bearer" or not token:
+        return None
+    return token
+
 @app.route("/users/create", methods=["POST"])
 def create_user():
     data = request.get_json()
@@ -55,7 +62,9 @@ def set_user_info():
 @app.route("/users/info", methods=["GET"])
 def get_user_info(id_token=None): # I use this function below in a different context, hence id_token optionally equal to None. 
     try:
-        id_token = id_token if id_token is not None else request.args.get("id_token")
+        id_token = id_token if id_token is not None else get_bearer_token()
+        if not id_token:
+            return error_response("Authorization header with Bearer token is required", 401)
         uid = Firebase.verify_id_token(id_token).get('uid') # !!!
         user_info = Firebase.get_user_info(uid)
         return success_response(user_info, 200)
