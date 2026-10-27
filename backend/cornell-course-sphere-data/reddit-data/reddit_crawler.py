@@ -14,17 +14,32 @@ class RedditCrawler:
     A class to fetch data from Reddit using PRAW (Python Reddit API Wrapper).
     """
 
-    def __init__(self, api_keys_path: str):
+    def __init__(self, api_keys_path: str = "reddit_key.json"):
         """
-        Initializes the RedditCrawler instance with Reddit API credentials from a JSON file.
+        Initializes the RedditCrawler instance with Reddit API credentials.
 
-        :param api_keys_path: Path to the JSON file containing Reddit API credentials.
+        Credentials are read from the REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET
+        environment variables. As a fallback for local use, a JSON file that is
+        NOT versioned (see reddit_key.example.json) is accepted.
+
+        :param api_keys_path: Path to the optional local JSON credentials file.
         """
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        api_keys = json.loads(open(os.path.join(current_dir, api_keys_path)).read())
+        client_id = os.environ.get("REDDIT_CLIENT_ID")
+        client_secret = os.environ.get("REDDIT_CLIENT_SECRET")
+        if not (client_id and client_secret):
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            key_file = os.path.join(current_dir, api_keys_path)
+            if not os.path.exists(key_file):
+                raise RuntimeError(
+                    "Missing Reddit credentials: set REDDIT_CLIENT_ID and "
+                    "REDDIT_CLIENT_SECRET (see reddit_key.example.json)."
+                )
+            with open(key_file) as f:
+                api_keys = json.load(f)
+            client_id, client_secret = api_keys["client_id"], api_keys["client_secret"]
         self.reddit = praw.Reddit(
-            client_id=api_keys["client_id"],
-            client_secret=api_keys["client_secret"],
+            client_id=client_id,
+            client_secret=client_secret,
             user_agent="jji-bigg"
         )
         self.subreddit = None

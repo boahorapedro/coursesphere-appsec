@@ -1,0 +1,5 @@
+## Código atual: carregamento das credenciais
+## Sem credenciais (esperado: erro claro)
+RuntimeError: Missing Reddit credentials: set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET (see reddit_key.example.json).
+## Com variaveis de ambiente falsas (esperado: ok)
+ok: construido a partir do ambiente

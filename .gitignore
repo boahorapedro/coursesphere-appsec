@@ -9,3 +9,7 @@
 
 secrets/
 tmp-secrets/
+
+# Secrets: never commit your secrets to git. Use a secrets manager or environment variables instead.
+reddit_key.json
+.env
