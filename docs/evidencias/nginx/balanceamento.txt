@@ -1,0 +1,10 @@
+## Réplicas em execução
+SERVICE             NAME                               STATUS
+backend             coursesphere-backend-1             Up About a minute
+backend             coursesphere-backend-2             Up About a minute
+nginx               coursesphere-nginx-1               Up About a minute
+
+## 20 requisições pelo balanceador (porta 5000)
+## Quantas cada réplica recebeu (linhas de log por réplica)
+     16 backend-1  
+      4 backend-2  
