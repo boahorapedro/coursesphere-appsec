@@ -1,0 +1,22 @@
+## /health pelo balanceador
+{"status":"ok"}
+
+status: 200
+
+## /metrics pela porta pública (esperado: 404, bloqueado no Nginx)
+status: 404
+
+## Gerando tráfego: 3 com token (200), 3 sem token (401), 2 em rota inexistente (404)
+
+## Logs JSON (últimas 4 linhas de requisição de todas as réplicas)
+{"timestamp": "2026-10-28T01:30:39.196+00:00", "level": "INFO", "logger": "endpoints", "message": "request", "instance": "e058d372a9ec", "request_id": "66bd0222244695170a89f512f52c07ef", "method": "GET", "path": "/users/info", "route": "/users/info", "status": 401, "duration_ms": 0.15, "forwarded_for": "172.18.0.1"}
+{"timestamp": "2026-10-28T01:30:39.241+00:00", "level": "INFO", "logger": "endpoints", "message": "request", "instance": "e058d372a9ec", "request_id": "694a603a15a23147da0cab0bf86d6799", "method": "GET", "path": "/users/info", "route": "/users/info", "status": 401, "duration_ms": 0.2, "forwarded_for": "172.18.0.1"}
+{"timestamp": "2026-10-28T01:30:39.298+00:00", "level": "INFO", "logger": "endpoints", "message": "request", "instance": "e058d372a9ec", "request_id": "531a44fc698c1ffe5a9e00f797f853ed", "method": "GET", "path": "/nao-existe", "route": "unmatched", "status": 404, "duration_ms": 0.33, "forwarded_for": "172.18.0.1"}
+{"timestamp": "2026-10-28T01:30:39.353+00:00", "level": "INFO", "logger": "endpoints", "message": "request", "instance": "e058d372a9ec", "request_id": "4ee942345f3a4106693ffe8c671118c0", "method": "GET", "path": "/nao-existe", "route": "unmatched", "status": 404, "duration_ms": 0.2, "forwarded_for": "172.18.0.1"}
+
+## Métricas de uma réplica (pela rede interna, sem passar pelo Nginx)
+http_requests_total{method="GET",route="/users/info",status="200"} 5.0
+http_requests_total{method="GET",route="/users/info",status="401"} 4.0
+http_requests_total{method="GET",route="unmatched",status="404"} 3.0
+http_request_duration_seconds_count{route="/users/info"} 9.0
+http_request_duration_seconds_count{route="unmatched"} 3.0

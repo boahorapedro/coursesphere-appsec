@@ -4,8 +4,10 @@ from query_manager import QueryManager
 from firebase import Firebase
 from firebase_admin import auth
 from main import hashFunction
+from observability import init_observability
 
 app = Flask(__name__)
+init_observability(app)
 CORS(app)
 
 # TODO: figure out the blueprint thing below
