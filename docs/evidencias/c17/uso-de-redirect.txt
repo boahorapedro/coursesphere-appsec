@@ -1,0 +1,2 @@
+grep -rnE 'Navigate|redirect' frontend/src
+(nenhuma ocorrência)
