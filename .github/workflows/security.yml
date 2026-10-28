@@ -1,0 +1,97 @@
+name: security-and-smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gitleaks (current tree, no history)
+        run: |
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.21.2 \
+            detect --no-git --redact --source /repo --config /repo/.gitleaks.toml
+
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install semgrep bandit
+      - name: Semgrep (full report, non-blocking)
+        run: |
+          semgrep scan --metrics=off \
+            --config p/python --config p/flask --config p/typescript \
+            --config p/react --config p/dockerfile --config p/secrets \
+            --exclude backend/cornell-course-sphere-data \
+            --output semgrep-report.txt .
+      - name: Semgrep (pull requests only, blocks NEW findings)
+        if: github.event_name == 'pull_request'
+        run: |
+          semgrep scan --metrics=off --error \
+            --baseline-commit ${{ github.event.pull_request.base.sha }} \
+            --config p/python --config p/flask --config p/typescript \
+            --config p/react --config p/dockerfile --config p/secrets \
+            --exclude backend/cornell-course-sphere-data .
+      - name: Bandit (report, non-blocking)
+        run: bandit -r backend -x backend/cornell-course-sphere-data -f txt -o bandit-report.txt || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sast-reports
+          path: |
+            semgrep-report.txt
+            bandit-report.txt
+
+  sca:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: pip-audit (informational)
+        continue-on-error: true
+        run: |
+          pip install pip-audit
+          pip-audit -r backend/requirements.txt | tee pip-audit-report.txt
+      - name: npm audit (informational, see C17a)
+        continue-on-error: true
+        working-directory: frontend
+        run: npm audit --omit=dev | tee ../npm-audit-report.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sca-reports
+          path: |
+            pip-audit-report.txt
+            npm-audit-report.txt
+
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start the environment
+        run: docker compose up -d --build
+      - name: Smoke and security regression tests
+        run: bash scripts/smoke-test.sh
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -200
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

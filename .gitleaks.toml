@@ -1,0 +1,12 @@
+title = "CourseSphere"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Falsos positivos documentados (C10: chave web do Firebase) e dados públicos"
+paths = [
+  '''frontend/src/firebaseConfig\.ts''',
+  '''docs/evidencias/''',
+  '''backend/cornell-course-sphere-data/course-roster-kaggle/''',
+]
