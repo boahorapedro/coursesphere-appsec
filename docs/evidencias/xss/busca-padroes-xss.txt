@@ -1,0 +1,3 @@
+# Busca por padrões de XSS no frontend
+# Comando: grep -rnE "dangerouslySetInnerHTML|innerHTML|document\.write|eval\(" frontend/src
+Nenhuma ocorrência encontrada.
