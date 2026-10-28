@@ -1,0 +1,154 @@
+# npm audit report
+
+@babel/runtime  <7.26.10
+Severity: moderate
+Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups - https://github.com/advisories/GHSA-968p-4wvh-cqc8
+fix available via `npm audit fix`
+node_modules/@babel/runtime
+
+@fastify/busboy  <=3.2.1
+Severity: high
+@fastify/busboy vulnerable to Denial of Service via prototype-named multipart part header - https://github.com/advisories/GHSA-x8mw-p69m-v3mx
+@fastify/busboy vulnerable to CRLF injection via multipart Content-Disposition filename and name - https://github.com/advisories/GHSA-gxm5-99cw-xjw9
+fix available via `npm audit fix`
+node_modules/@fastify/busboy
+  undici  <=6.29.0
+  Depends on vulnerable versions of @fastify/busboy
+  node_modules/undici
+    @firebase/auth  1.5.0-20231112213030 - 1.7.7
+    Depends on vulnerable versions of undici
+    node_modules/@firebase/auth-compat/node_modules/@firebase/auth
+    node_modules/firebase/node_modules/@firebase/auth
+    @firebase/auth-compat  0.4.9-20231107192534 - 0.4.9-canary.a5c1a3594 || 0.5.0-20231112213030 - 0.5.12
+    Depends on vulnerable versions of @firebase/auth
+    Depends on vulnerable versions of undici
+    node_modules/@firebase/auth-compat
+      firebase  0.900.22 || 7.9.1-0 - 7.9.1-canary.0396117e || 8.10.0-20217172214 - 8.10.0-canary.f40c0db53 || 9.0.0-20217250818 - 9.0.0-canary.d0d3acb10 || 9.0.1-2021727231341 - 9.0.1-canary.e039e1472 || 9.0.2-2021891633 - 9.0.2-canary.ff9baf70c || 9.0.3-202181503543 - 9.1.0-canary.f7d8324a1 || 9.1.1-2021830195733 - 9.1.1-canary.e70de6201 || 9.1.2-20219523556 - 9.1.2-canary.fc1d36497 || 9.19.1-20230331192943 - 9.19.1-canary.264909862 || 9.22.1-20230524195328 || 10.5.0-20231010210210 - 10.5.0-canary.f002ef36a || 10.6.0-20231107192534 - 10.6.0-canary.ebc694a33 || 10.7.0-20231112213030 - 10.13.0 || 11.9.0-20250603144652 - 11.9.0-canary.5871fd656
+      Depends on vulnerable versions of @firebase/auth
+      Depends on vulnerable versions of @firebase/auth-compat
+      Depends on vulnerable versions of @firebase/firestore
+      Depends on vulnerable versions of @firebase/firestore-compat
+      Depends on vulnerable versions of @firebase/functions
+      Depends on vulnerable versions of @firebase/functions-compat
+      Depends on vulnerable versions of @firebase/storage
+      Depends on vulnerable versions of @firebase/storage-compat
+      node_modules/firebase
+    @firebase/firestore  4.3.2-20231027003707 - 4.3.2-canary.ff1a6ec2c || 4.4.0-20231112213030 - 4.7.0
+    Depends on vulnerable versions of undici
+    node_modules/@firebase/firestore
+      @firebase/firestore-compat  <=0.0.900-exp.520ca39d0 || 0.3.22-20231107192534 - 0.3.22-canary.ebc694a33 || 0.3.23-20231112213030 - 0.3.35
+      Depends on vulnerable versions of @firebase/firestore
+      node_modules/@firebase/firestore-compat
+    @firebase/functions  0.11.0-20231112213030 - 0.11.6
+    Depends on vulnerable versions of undici
+    node_modules/@firebase/functions
+      @firebase/functions-compat  0.3.5-20230523183426 - 0.3.5-canary.ff1a6ec2c || 0.3.6-20231112213030 - 0.3.12
+      Depends on vulnerable versions of @firebase/functions
+      node_modules/@firebase/functions-compat
+    @firebase/storage  0.11.2-20230301000120 - 0.11.2-canary.2a2e2b7ce || 0.12.0-20231112213030 - 0.13.0
+    Depends on vulnerable versions of undici
+    node_modules/@firebase/storage
+      @firebase/storage-compat  <=0.0.900-exp.520ca39d0 || 0.1.4-202192711727 - 0.1.4-canary.f27fe4304 || 0.3.2-20230301000120 - 0.3.2-canary.ff1a6ec2c || 0.3.3-20231112213030 - 0.3.10
+      Depends on vulnerable versions of @firebase/storage
+      node_modules/@firebase/storage-compat
+
+@grpc/grpc-js  <=1.13.5
+Severity: high
+@grpc/grpc-js: A malformed request can cause a server crash - https://github.com/advisories/GHSA-5375-pq7m-f5r2
+@grpc/grpc-js: An incoming malformed compressed message can cause a client or server crash - https://github.com/advisories/GHSA-99f4-grh7-6pcq
+@grpc/grpc-js: In certain configurations, getAuthContext can return unauthorized certificates as though they were authorized - https://github.com/advisories/GHSA-m9gg-hp2v-232j
+@grpc/grpc-js: The server transmits some error messages thrown by method handlers to the client in status messages - https://github.com/advisories/GHSA-f596-whhp-79r4
+fix available via `npm audit fix`
+node_modules/@grpc/grpc-js
+
+@protobufjs/utf8  <=1.1.0
+Severity: moderate
+protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
+fix available via `npm audit fix`
+node_modules/@protobufjs/utf8
+
+@remix-run/router  <=1.23.2
+Severity: high
+React Router vulnerable to XSS via Open Redirects - https://github.com/advisories/GHSA-2w69-qvjg-hvjx
+React Router's same-origin redirect with path starting // causes open redirect via protocol-relative URL reinterpretation - https://github.com/advisories/GHSA-2j2x-hqr9-3h42
+fix available via `npm audit fix`
+node_modules/@remix-run/router
+  react-router  6.0.0 - 7.17.0
+  Depends on vulnerable versions of @remix-run/router
+  node_modules/react-router
+    react-router-dom  6.0.0-alpha.0 - 6.30.2
+    Depends on vulnerable versions of @remix-run/router
+    Depends on vulnerable versions of react-router
+    node_modules/react-router-dom
+
+immutable  4.0.0-rc.1 - 4.3.8
+Severity: high
+Immutable is vulnerable to Prototype Pollution - https://github.com/advisories/GHSA-wf6x-7x77-mvgw
+Immutable: Hash-collision algorithmic complexity denial of service in Immutable.Map/Set - https://github.com/advisories/GHSA-xvcm-6775-5m9r
+Immutable.js `List` 32-bit trie overflow → unrecoverable DoS - https://github.com/advisories/GHSA-v56q-mh7h-f735
+fix available via `npm audit fix`
+node_modules/immutable
+
+picomatch  <=2.3.1
+Severity: high
+Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching - https://github.com/advisories/GHSA-3v7f-55p6-f55p
+Picomatch has a ReDoS vulnerability via extglob quantifiers - https://github.com/advisories/GHSA-c2c7-rcm5-vvqj
+fix available via `npm audit fix`
+node_modules/picomatch
+
+protobufjs  <=7.6.2
+Severity: critical
+Arbitrary code execution in protobufjs - https://github.com/advisories/GHSA-xq3m-2v4x-88gg
+protobuf.js: Code injection through bytes field defaults in generated toObject code - https://github.com/advisories/GHSA-66ff-xgx4-vchm
+protobuf.js: Denial of service from crafted field names in generated code - https://github.com/advisories/GHSA-2pr8-phx7-x9h3
+protobuf.js: Prototype injection in generated message constructors - https://github.com/advisories/GHSA-fx83-v9x8-x52w
+protobuf.js: Code generation gadget after prototype pollution - https://github.com/advisories/GHSA-75px-5xx7-5xc7
+protobuf.js: Process-wide denial of service through unsafe option paths - https://github.com/advisories/GHSA-jvwf-75h9-cwgg
+protobuf.js: Denial of service through unbounded protobuf recursion - https://github.com/advisories/GHSA-685m-2w69-288q
+protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
+protobufjs: Denial of Service via unbounded recursive JSON descriptor expansion - https://github.com/advisories/GHSA-jggg-4jg4-v7c6
+protobufjs: Denial of service through unbounded Any expansion during JSON conversion - https://github.com/advisories/GHSA-wcpc-wj8m-hjx6
+protobufjs : Schema-derived names can shadow runtime-significant properties - https://github.com/advisories/GHSA-f38q-mgvj-vph7
+fix available via `npm audit fix`
+node_modules/protobufjs
+
+
+source-map-js  1.0.0 - 1.2.1
+Severity: high
+source-map-js allows event-loop denial of service through indexed source-map section offsets - https://github.com/advisories/GHSA-68fv-2mgg-jv7q
+fix available via `npm audit fix`
+node_modules/source-map-js
+
+
+uuid  <11.1.1
+Severity: moderate
+uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided - https://github.com/advisories/GHSA-w5hq-g745-h8pq
+fix available via `npm audit fix --force`
+Will install uuid@14.0.3, which is a breaking change
+node_modules/uuid
+
+websocket-driver  <=0.7.4
+Severity: critical
+websocket-driver: Resource limit bypass via message compression - https://github.com/advisories/GHSA-mp7j-qc5w-4988
+websocket-driver: Message corruption via abuse of protocol length headers - https://github.com/advisories/GHSA-xv26-6w52-cph6
+fix available via `npm audit fix`
+node_modules/websocket-driver
+
+yaml  1.0.0 - 1.10.2
+Severity: moderate
+yaml is vulnerable to Stack Overflow via deeply nested YAML collections - https://github.com/advisories/GHSA-48c2-rrv3-qjmp
+fix available via `npm audit fix`
+node_modules/yaml
+
+24 vulnerabilities (13 moderate, 9 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

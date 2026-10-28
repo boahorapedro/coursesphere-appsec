@@ -1,0 +1,16 @@
+diretório: /app
+--- tamanho de node_modules na imagem:
+463.4M	node_modules
+--- pastas de build:
+ls: build: No such file or directory
+dist
+--- arquivos do bundle que contêm o termo:
+protobuf: 0
+websocket-driver: 0
+undici: 0
+react-router: 0
+--- busca por URLs de serviços no bundle (controle: identitytoolkit deve ser > 0)
+identitytoolkit.googleapis.com: 1
+firestore.googleapis.com: 0
+firebasestorage.googleapis.com: 0
+cloudfunctions.net: 0

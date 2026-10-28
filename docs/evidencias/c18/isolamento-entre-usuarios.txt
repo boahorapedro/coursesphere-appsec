@@ -1,0 +1,143 @@
+# C18: isolamento de chats entre usuários (emulador, 2 contas)
+
+## 1. A salva o chat 'chat-do-a-31023'
+{"message":"Messages saved successfully"}
+
+status: 200
+
+## 2. Banco depois do passo 1
+{
+  "users" : {
+    "2ihV0x2w7YZOIxmp3a8zB6kRST6j" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtP7WficdQwp-gSG" : {
+              "content" : "mensagem do B tentando sobrescrever",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    },
+    "DfZfdw7vo0kyhq2wy6jeCfNn97Fm" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtLPPTaocWiq23nI" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        },
+        "chat-do-a-31023" : {
+          "messages" : {
+            "-P52Eu9jA5xcsgWxgoN5" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## 3. B tenta APAGAR 'chat-do-a-31023'
+{"message":"Message deleted successfully"}
+
+status: 200
+
+## 4. Banco depois do passo 3 (o chat do A deve continuar aqui)
+{
+  "users" : {
+    "2ihV0x2w7YZOIxmp3a8zB6kRST6j" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtP7WficdQwp-gSG" : {
+              "content" : "mensagem do B tentando sobrescrever",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    },
+    "DfZfdw7vo0kyhq2wy6jeCfNn97Fm" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtLPPTaocWiq23nI" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        },
+        "chat-do-a-31023" : {
+          "messages" : {
+            "-P52Eu9jA5xcsgWxgoN5" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## 5. B tenta SOBRESCREVER 'chat-do-a-31023'
+{"message":"Messages saved successfully"}
+
+status: 200
+
+## 6. Banco depois do passo 5 (a mensagem do A deve estar intacta)
+{
+  "users" : {
+    "2ihV0x2w7YZOIxmp3a8zB6kRST6j" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtP7WficdQwp-gSG" : {
+              "content" : "mensagem do B tentando sobrescrever",
+              "role" : "user"
+            }
+          }
+        },
+        "chat-do-a-31023" : {
+          "messages" : {
+            "-P52EuDSPP25yegv9pXZ" : {
+              "content" : "mensagem do B tentando sobrescrever",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    },
+    "DfZfdw7vo0kyhq2wy6jeCfNn97Fm" : {
+      "chats" : {
+        "chat-do-a" : {
+          "messages" : {
+            "-P52DtLPPTaocWiq23nI" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        },
+        "chat-do-a-31023" : {
+          "messages" : {
+            "-P52Eu9jA5xcsgWxgoN5" : {
+              "content" : "mensagem privada do A",
+              "role" : "user"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## 7. Sem token
+{"error":"Error deleting message: 'NoneType' object has no attribute 'split'"}
+
+status: 400

@@ -1,0 +1,16 @@
+# imports de firebase e react-router no frontend
+frontend/src/api.ts:2:import firebaseConfig from "./firebaseConfig";
+frontend/src/api.ts:3:import { FirebaseApp, initializeApp } from "firebase/app";
+frontend/src/api.ts:4:import { Database, getDatabase, set } from "firebase/database";
+frontend/src/api.ts:5:import { Auth, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+frontend/src/App.tsx:1:import { initializeApp } from "firebase/app";
+frontend/src/App.tsx:2:import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+frontend/src/App.tsx:12:import firebaseConfig from "./firebaseConfig";
+frontend/src/components/nav/Nav.tsx:18:import { Auth, getAuth, onAuthStateChanged } from 'firebase/auth';
+frontend/src/components/nav/Nav.tsx:19:import { FirebaseApp, initializeApp } from 'firebase/app';
+frontend/src/components/nav/Nav.tsx:20:import { Database, getDatabase } from 'firebase/database';
+frontend/src/components/nav/Nav.tsx:21:import firebaseConfig from '../../firebaseConfig';
+frontend/src/components/UserChats/UserChats.tsx:3:import { getAuth, onAuthStateChanged } from 'firebase/auth';
+frontend/src/components/UserChats/UserChats.tsx:4:import { getDatabase } from 'firebase/database';
+frontend/src/components/UserChats/UserChats.tsx:6:import { initializeApp } from "firebase/app";
+frontend/src/components/UserChats/UserChats.tsx:7:import firebaseConfig from "../../firebaseConfig";
