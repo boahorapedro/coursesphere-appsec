@@ -37,14 +37,14 @@ Triagem inicial a partir de Semgrep, Bandit, Gitleaks e leitura manual do códig
 
 ## Resumo das decisões
 
-| Tipo | ID | Branch | Commit |
-|------|----|--------|--------|
-| Correção | C05 — credenciais do Reddit | `fix/security-c05-segredo-reddit` | `70b9307` |
-| Correção | C04 — token na query string | `fix/security-c04-token-no-header` | `5da47ad` |
-| Correção | C19 — enumeração de usuários | `fix/security-c19-enumeracao-usuarios` | `852bd37` |
-| Hardening | C12 — containers sem root | `hardening/containers-sem-root` | `56d4016` |
-| Hardening | C06 — rate limit e cabeçalhos no Nginx | `feat/nginx-balanceador-rate-limit` | `d342668` |
-| Infra | Nginx com 2 réplicas do backend | `feat/nginx-balanceador-rate-limit` | `d0cedc6` |
+| Tipo | ID | Commit |
+|------|----|--------|
+| Correção | C05 — credenciais do Reddit | `70b9307` |
+| Correção | C04 — token na query string  | `5da47ad` |
+| Correção | C19 — enumeração de usuários  | `852bd37` |
+| Hardening | C12 — containers sem root  | `56d4016` |
+| Hardening | C06 — rate limit e cabeçalhos no Nginx  | `d342668` |
+| Infra | Nginx com 2 réplicas do backend  | `d0cedc6` |
 
 Achados confirmados com evidência própria: C01, C03, C04, C05, C06, C07, C12, C15, C17a, C17b, C19. Categorias cobertas: exposição de dados sensíveis, autenticação falha, configuração incorreta de segurança e dependências vulneráveis. Verificado e não vulnerável: C18
 
